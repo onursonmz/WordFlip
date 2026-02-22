@@ -12,7 +12,7 @@ export const useWords = () => {
     return context;
 };
 
-export const WordProvider = ({ children }) => {
+export function WordProvider({ children }) {
     // Initialize state directly from LocalStorage to avoid initial mount wipe
     const [words, setWords] = useState(() => getWords());
     const [isInitialized, setIsInitialized] = useState(false);
@@ -77,4 +77,4 @@ export const WordProvider = ({ children }) => {
             {children}
         </WordContext.Provider>
     );
-};
+}
