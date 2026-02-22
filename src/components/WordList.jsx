@@ -22,7 +22,7 @@ const WordList = ({ words, activeFilter }) => {
             }
         }
     };
-
+    //deneme
     const emptyMessages = {
         all: "Henüz kelime eklenmemiş. Yeni kelimeler ekleyerek başlayın!",
         favorites: "Henüz favori kelimeniz yok. Yıldız ikonuna basarak ekleyebilirsiniz!",
