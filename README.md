@@ -1,16 +1,42 @@
-# React + Vite
+# 📱 WordFlip – İngilizce Kelime Kartı Uygulaması
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+WordFlip, İngilizce kelimeleri ezberlemenizi kolaylaştıran, mobil öncelikli ve modern tasarımlı bir flashcard uygulamasıdır.
 
-Currently, two official plugins are available:
+## 🚀 Özellikler
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+-   **Yatay Swipe Sistemi:** Kartları sağa/sola kaydırarak kelimeler arasında akıcı geçiş yapın.
+-   **Flip Kart Tasarımı:** Kelimenin okunuşunu ve örnek cümlesini görmek için karta dokunmanız yeterli.
+-   **Çalışma Listesi (Study List):** Zorlandığınız kelimeleri pini kullanarak ayrı bir listede toplayın.
+-   **Favoriler:** Sevdiğiniz kelimeleri kalp ikonu ile işaretleyin.
+-   **Gelişmiş Filtreleme:** Tümü, Favoriler ve Çalışma Listesi sekmeleri ile odaklanın.
+-   **Yerel Depolama:** Verileriniz tarayıcınızda (LocalStorage) güvenle saklanır.
+-   **İlerleme Takibi:** Liste içindeki konumunuzu görsel bir ilerleme çubuğu ile takip edin.
 
-## React Compiler
+## 🛠️ Teknoloji Yığını
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+-   **Frontend:** React (Hooks, Context API)
+-   **Build Tool:** Vite
+-   **Styling:** Modern Vanilla CSS (Glassmorphism & 3D CSS)
+-   **İkonlar:** Lucide React
+-   **State Yönetimi:** React Context API
 
-## Expanding the ESLint configuration
+## 💻 Kurulum
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+Projeyi yerelinizde çalıştırmak için:
+
+1.  Bağımlılıkları yükleyin:
+    ```bash
+    npm install
+    ```
+
+2.  Uygulamayı başlatın:
+    ```bash
+    npm run dev
+    ```
+
+## 📸 Uygulama Hakkında
+
+Bu uygulama modern web tasarım prensipleri (Glassmorphism, Akıcı Animasyonlar) kullanılarak mobil öncelikli geliştirilmiştir.
+
+---
+Geliştiren: [onursonmz](https://github.com/onursonmz)
