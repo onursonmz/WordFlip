@@ -28,7 +28,7 @@ We use **Google Firebase** for authentication, database, and hosting. These serv
 **User Data Deletion:** We provide a clear way for you to delete your data.
 *   You can delete your account and all associated vocabulary data directly from the **Profile** section within the WordFlip app.
 *   Upon clicking "Delete My Account," your personal data will be anonymized or permanently deleted from our servers.
-*   If you have trouble deleting your account, you can contact us at **onursonmz@example.com** (Please replace with your real email).
+*   If you have trouble deleting your account, you can contact us at **onur.snmz98@gmail.com** (Please replace with your real email).
 
 ## 6. Children's Privacy
 WordFlip is not intended for children under 13. We do not knowingly collect information from children under 13.
@@ -36,4 +36,4 @@ WordFlip is not intended for children under 13. We do not knowingly collect info
 ## 7. Contact Us
 If you have any questions or requests regarding your data, please reach out:
 *   **Developer:** Onur Sonmez
-*   **Email:** [onursonmz@example.com] (Please update this with your actual email in the file)
+*   **Email:** onur.snmz98@gmail.com
