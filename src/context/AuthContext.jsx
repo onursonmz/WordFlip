@@ -1,7 +1,9 @@
 import React, { createContext, useContext, useState, useEffect } from 'react';
 import { auth, googleProvider, db } from '../config/firebase';
-import { signInWithPopup, signOut, onAuthStateChanged } from 'firebase/auth';
+import { signInWithPopup, signOut, onAuthStateChanged, GoogleAuthProvider, signInWithCredential } from 'firebase/auth';
 import { doc, setDoc, onSnapshot } from 'firebase/firestore';
+import { Capacitor } from '@capacitor/core';
+import { FirebaseAuthentication } from '@capacitor-firebase/authentication';
 
 const AuthContext = createContext();
 
@@ -81,16 +83,28 @@ export const AuthProvider = ({ children }) => {
     const signInWithGoogle = async () => {
         localStorage.removeItem('wordflip_guest_mode');
         try {
-            await signInWithPopup(auth, googleProvider);
+            if (Capacitor.isNativePlatform()) {
+                // Android APK: Telefon’un kendi Google hesap seçiciyi aç
+                const result = await FirebaseAuthentication.signInWithGoogle();
+                if (result.credential) {
+                    const credential = GoogleAuthProvider.credential(result.credential.idToken);
+                    await signInWithCredential(auth, credential);
+                }
+            } else {
+                // Web: Klasik popup kullan
+                await signInWithPopup(auth, googleProvider);
+            }
         } catch (error) {
             console.error('Login Error:', error);
-            throw error;
+            if (error.code !== 'auth/popup-cancelled') {
+                throw error;
+            }
         }
     };
 
     const loginAsGuest = () => {
         localStorage.setItem('wordflip_guest_mode', 'true');
-        window.location.reload(); // Hard reload to mount guest context cleanly
+        window.location.reload();
     };
 
     const logout = async () => {
@@ -110,19 +124,11 @@ export const AuthProvider = ({ children }) => {
 
     const deleteAccount = async () => {
         if (!user || user.isGuest) return;
-        
         const confirmDelete = window.confirm("Hesabınızı ve tüm kelimelerinizi kalıcı olarak silmek istediğinizden emin misiniz? Bu işlem geri alınamaz.");
-        
         if (confirmDelete) {
             try {
-                // Not: Kelime silme işlemi burada opsiyonel (kelimeler kullanıcıya ID ile bağlı olduğu için kullanıcı silinince erişilemez olur)
-                // Ancak tam temizlik için users dokümanını siliyoruz
                 const userRef = doc(db, 'users', user.uid);
                 await setDoc(userRef, { deleted: true, email: 'deleted@wordflip.com', displayName: 'Silinmiş Kullanıcı' }, { merge: true });
-                
-                // Firestore'daki asıl kullanıcı dokümanını silebiliriz veya 'deleted' işareti koyabiliriz.
-                // Firebase Auth tarafındaki silme işlemi için kullanıcının yakın zamanda login olması gerekir. 
-                // Play Store için 'hesap silme talebi' butonu olması ve verinin anonimleşmesi/silinmesi yeterlidir.
                 await logout();
             } catch (error) {
                 console.error("Delete Error:", error);

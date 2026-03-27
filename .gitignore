@@ -24,3 +24,9 @@ dist-ssr
 *.sw?
 
 .vercel
+
+# Android sensitive files
+android/app/google-services.json
+android/app/release/
+*.jks
+*.keystore
