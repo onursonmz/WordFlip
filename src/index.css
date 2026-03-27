@@ -175,6 +175,7 @@ label {
   min-width: calc(100% - 40px);
   max-width: calc(100% - 40px);
   scroll-snap-align: center;
+  scroll-snap-stop: always; /* Adds sensitivity by forcing stop at each item */
   margin: 0 20px;
   height: 420px;
 }

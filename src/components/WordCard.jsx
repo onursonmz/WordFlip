@@ -39,7 +39,7 @@ const WordCard = ({ word }) => {
         <div className={`card-container ${isFlipped ? 'is-flipped' : ''}`} onClick={handleCardClick} style={{ height: '100%' }}>
             <div className="card-inner">
                 {/* Front Side */}
-                <div className="card-front">
+                <div className="card-front" style={{ border: `3px solid ${word.addedByColor || 'var(--border)'}` }}>
                     <div className="card-header">
                         <span className="word-type">{word.wordType}</span>
                         <div className="card-actions">
@@ -69,13 +69,18 @@ const WordCard = ({ word }) => {
                         <p className="example-sentence">"{word.exampleSentenceEn}"</p>
                     </div>
 
-                    <div className="card-footer">
+                    <div className="card-footer" style={{ position: 'relative' }}>
                         <span className="hint">Öğrenmek için dokun</span>
+                        {word.addedByName && (
+                            <div style={{ position: 'absolute', bottom: '-10px', right: '-15px', background: word.addedByColor || 'var(--primary)', color: 'white', padding: '4px 10px', borderRadius: '12px', fontSize: '0.7rem', fontWeight: 'bold', boxShadow: '0 2px 4px rgba(0,0,0,0.1)' }}>
+                                {word.addedByName.split(' ')[0]}
+                            </div>
+                        )}
                     </div>
                 </div>
 
                 {/* Back Side */}
-                <div className="card-back">
+                <div className="card-back" style={{ border: `3px solid ${word.addedByColor || 'var(--border)'}` }}>
                     <div className="card-header">
                         <span className="word-type-tr">{word.wordType === 'noun' ? 'isim' : word.wordType === 'verb' ? 'fiil' : word.wordType === 'adjective' ? 'sıfat' : word.wordType === 'adverb' ? 'zarf' : 'kalıp'}</span>
                         <div className="card-actions">
@@ -89,8 +94,13 @@ const WordCard = ({ word }) => {
                         <p className="example-sentence-tr">{word.exampleSentenceTr}</p>
                     </div>
 
-                    <div className="card-footer">
+                    <div className="card-footer" style={{ position: 'relative' }}>
                         <span className="hint">Geri dönmek için dokun</span>
+                        {word.addedByName && (
+                            <div style={{ position: 'absolute', bottom: '-10px', right: '-15px', background: word.addedByColor || 'var(--primary)', color: 'white', padding: '4px 10px', borderRadius: '12px', fontSize: '0.7rem', fontWeight: 'bold', boxShadow: '0 2px 4px rgba(0,0,0,0.1)' }}>
+                                {word.addedByName.split(' ')[0]}
+                            </div>
+                        )}
                     </div>
                 </div>
             </div>

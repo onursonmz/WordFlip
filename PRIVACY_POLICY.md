@@ -1,0 +1,39 @@
+# Privacy Policy for WordFlip
+
+**Effective Date:** March 27, 2026
+
+At **WordFlip**, we provide a flashcard and vocabulary learning application. We take your privacy seriously and this policy explains how we handle your data to comply with Google Play's latest standards.
+
+---
+
+## 1. Information We Collect
+To provide cloud synchronization and social features, WordFlip collects the following information when you sign in via Google (Firebase Authentication):
+*   **Name & Email Address:** Used to identify your account and personalize your experience.
+*   **User IDs:** A unique identifier provided by Firebase to link your vocabulary lists to your account.
+*   **Profile Photo:** We store your Google profile photo URL to display your avatar within the app.
+
+## 2. How We Use Your Information (Purposes)
+*   **App Functionality:** To save and synchronize your words across multiple devices.
+*   **Account Management:** To manage your registration, login, and personalized settings.
+*   **Friend Groups:** Your Display Name and User ID are used to allow you to join or create shared vocabulary groups with friends.
+
+## 3. Data Storage & Security
+*   **Cloud Storage:** Your word lists and profile data are stored securely on **Google Firebase Firestore**. All data is encrypted in transit.
+*   **Local Storage:** Vocabulary data for "Guest Mode" users is stored locally on the device (localStorage) and never leaves the device.
+
+## 4. Third-Party Services
+We use **Google Firebase** for authentication, database, and hosting. These services are subject to the [Google Privacy Policy](https://policies.google.com/privacy).
+
+## 5. Data Retention & Deletion (Your Rights)
+**User Data Deletion:** We provide a clear way for you to delete your data.
+*   You can delete your account and all associated vocabulary data directly from the **Profile** section within the WordFlip app.
+*   Upon clicking "Delete My Account," your personal data will be anonymized or permanently deleted from our servers.
+*   If you have trouble deleting your account, you can contact us at **onursonmz@example.com** (Please replace with your real email).
+
+## 6. Children's Privacy
+WordFlip is not intended for children under 13. We do not knowingly collect information from children under 13.
+
+## 7. Contact Us
+If you have any questions or requests regarding your data, please reach out:
+*   **Developer:** Onur Sonmez
+*   **Email:** [onursonmz@example.com] (Please update this with your actual email in the file)

@@ -1,13 +1,11 @@
 import { GoogleGenerativeAI } from "@google/generative-ai";
 
-// Not: Güvenlik için API anahtarı normalde .env dosyasında saklanmalıdır.
-// Kullanıcıya kendi anahtarını alabilmesi için bir alan sunacağız.
 const genAI = (apiKey) => new GoogleGenerativeAI(apiKey);
 
 export const fetchWordDetailsWithAI = async (word, apiKey) => {
   if (!apiKey) throw new Error("API Key eksik!");
 
-  const model = genAI(apiKey).getGenerativeModel({ model: "gemini-1.5-flash" });
+  const model = genAI(apiKey).getGenerativeModel({ model: "gemini-2.5-flash" });
 
   const prompt = `
     Analyze the English word "${word}" and provide details for a flashcard application.
@@ -25,34 +23,35 @@ export const fetchWordDetailsWithAI = async (word, apiKey) => {
 
   try {
     const result = await model.generateContent(prompt);
-    const response = await result.response;
-    const text = response.text();
+    const text = result.response.text();
 
-    // Daha güvenli JSON ayıklama: İlk '{' ve son '}' karakterleri arasını al
     const start = text.indexOf('{');
     const end = text.lastIndexOf('}');
 
     if (start === -1 || end === -1) {
-      console.error("Geçersiz AI yanıtı:", text);
       throw new Error("Yapay zeka uygun formatta yanıt veremedi.");
     }
 
-    const jsonStr = text.substring(start, end + 1);
-    return JSON.parse(jsonStr);
+    return JSON.parse(text.substring(start, end + 1));
   } catch (error) {
     console.error("AI Fetch Error:", error);
+    
+    // Eğer 404 hatasıysa list models yapıp hangi modellerin izni olduğunu gösterelim
+    if (error.message && error.message.includes('404')) {
+        try {
+            const res = await fetch(`https://generativelanguage.googleapis.com/v1beta/models?key=${apiKey}`);
+            const data = await res.json();
+            if (data.models) {
+                const available = data.models.map(m => m.name.replace('models/', '')).filter(n => n.includes('gemini'));
+                throw new Error(`Kullandığınız API Key'de "gemini-2.5-flash" bulunamadı. Kullanabileceğiniz modeller: ${available.join(', ')}. Lütfen yeni bir API Key aldığınızdan emin olun veya projenizi kontrol edin.`);
+            } else if (data.error) {
+                throw new Error(`API Key reddedildi: ${data.error.message}`);
+            }
+        } catch (fetchErr) {
+            throw new Error(`Hata 404 alındı. Kullandığınız API anahtarı geçersiz veya kısıtlı bir projeye (örneğin Firebase yerine açılmış boş bir projeye) ait olabilir.`);
+        }
+    }
 
-    // Hata türüne göre kullanıcıya daha net bilgi verelim
-    if (error.message?.includes("API_KEY_INVALID")) {
-      throw new Error("Geçerli bir API anahtarı girmediniz.");
-    }
-    if (error.message?.includes("PERMISSION_DENIED")) {
-      throw new Error("API anahtarınızın bu işlemi yapma yetkisi yok.");
-    }
-    if (error.message?.includes("quota")) {
-      throw new Error("Ücretsiz API kotanız dolmuş olabilir.");
-    }
-
-    throw new Error("Yapay zeka bilgileri getiremedi. Lütfen internet bağlantınızı ve API anahtarınızı kontrol edin.");
+    throw new Error(error.message || "Yapay zeka detayları çekemedi. Bağlantınızı kontrol edin.");
   }
 };

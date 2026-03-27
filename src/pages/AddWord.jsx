@@ -6,7 +6,7 @@ import { fetchWordDetailsWithAI } from '../utils/ai';
 
 const AddWord = () => {
     const navigate = useNavigate();
-    const { addWord } = useWords();
+    const { addWord, words } = useWords();
     const [formData, setFormData] = useState({
         englishWord: '',
         wordType: 'noun',
@@ -65,6 +65,13 @@ const AddWord = () => {
             setError('İngilizce kelime ve Türkçe anlam alanları zorunludur.');
             return;
         }
+
+        const isDuplicate = words?.some(w => w.englishWord.toLowerCase().trim() === formData.englishWord.toLowerCase().trim());
+        if (isDuplicate) {
+            setError('Bu kelime zaten kütüphanenizde bulunuyor!');
+            return;
+        }
+
         addWord(formData);
         navigate('/');
     };
